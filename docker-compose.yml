@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  api-server:
+    image: api-server:latest
+    container_name: api-server
+    restart: always
+    networks:
+      - stack-network
+
+  frontend-app:
+    image: frontend-app
+    container_name: frontend-application
+    restart: always
+    ports:
+      - "80:80"
+    networks:
+      - stack-network
+
+  nginx:
+    image: my-nginx:latest
+    container_name: my-nginx
+    restart: always
+    ports:
+      - "8000:80"
+    networks:
+      - stack-network
+
+networks:
+  stack-network:
+    driver: bridge

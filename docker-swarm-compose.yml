@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  api-server:
+    image: api-server:latest
+    ports:
+      - "8000:8000"
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    networks:
+      - api-server
+
+networks:
+  api-server:
+    driver: overlay
+
+# docker stack deploy -c docker-swarm-compose.yml <stack_name>
